@@ -15,7 +15,7 @@ class PokemonManager extends DatabaseManager {
     public function selectById(int $id): ?Pokemon {
         $requete = self::getConnexion()->prepare("SELECT * FROM pokemon WHERE id = :id:");
         $requete->execute([
-            ":id" => $id
+            ":id" => $id 
         ]);
 
         $arrayPokemon = $requete->fetch();
@@ -63,6 +63,9 @@ class PokemonManager extends DatabaseManager {
                 ":imageShiny" => $pokemon->getImageShiny()
             ]
             );
+
+        return $requete->rowCount() > 0;
+
     }
 
     public function delete(int $id): bool {
@@ -70,6 +73,8 @@ class PokemonManager extends DatabaseManager {
     $requete->execute([
         ":id" => $id
     ]);
+
+    return $requete->rowCount() > 0;
     }
 }
 
