@@ -2,19 +2,14 @@
 
 namespace App\Manager;
 use App\Interfaces\CrudInterface;
-use App\src\Model\Pokemon;
-use App\src\Model\PokemonType;
+use App\Models\Pokemon;
+use App\Models\PokemonType;
 use PDO;
 
 class PokemonManager extends DatabaseManager {
-    private PDO $db;
-
-    public function __construct(PDO $db) {
-        $this->db = $db;
-    }
 
     public function selectById(int $id): ?Pokemon {
-        $requete = self::getConnexion()->prepare("SELECT * FROM pokemon WHERE id = :id:");
+        $requete = self::getConnexion()->prepare("SELECT * FROM pokemon WHERE id = :id;");
         $requete->execute([
             ":id" => $id 
         ]);
@@ -26,7 +21,7 @@ class PokemonManager extends DatabaseManager {
             return null;
         }
         // Renvoyer l'instance d'un objet Pokemon avec les données du tableau associatif
-        return new Pokemon($arrayPokemon["id"], $arrayPokemon["pokemonId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"], $arrayPokemon["type"]);
+        return new Pokemon($arrayPokemon["id"], $arrayPokemon["pokemonId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"]);
     }
 
     public function selectAll(): array {

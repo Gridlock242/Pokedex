@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\Model;
+namespace App\Models;
 
 class Pokemon
 {
@@ -12,13 +12,9 @@ class Pokemon
         $this->category = $category;
         $this->image = $image;
         $this->imageShiny = $imageShiny;
-        $this->type = $types;
     }
 
-    public function addType(PokemonType $type) 
-    {
-        $this->types[] = $type;
-    }
+ 
 
     public function getId()
     {
