@@ -12,6 +12,12 @@ class Pokemon
         $this->category = $category;
         $this->image = $image;
         $this->imageShiny = $imageShiny;
+        $this->type = $types;
+    }
+
+    public function addType(PokemonType $type) 
+    {
+        $this->types[] = $type;
     }
 
     public function getId()
