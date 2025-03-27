@@ -8,6 +8,7 @@ class  HomeController
 
     public function homePage()
     {
+        // var_dump("salut");
         require_once("./templates/homePage.php");
     }
 
