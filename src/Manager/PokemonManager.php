@@ -21,7 +21,7 @@ class PokemonManager extends DatabaseManager {
             return null;
         }
         // Renvoyer l'instance d'un objet Pokemon avec les données du tableau associatif
-        return new Pokemon($arrayPokemon["id"], $arrayPokemon["pokemonId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"]);
+        return new Pokemon($arrayPokemon["id"], $arrayPokemon["pokedexId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"]);
     }
 
     public function selectAll(): array {
@@ -31,7 +31,7 @@ class PokemonManager extends DatabaseManager {
         $arrayPokemons = $requete->fetchAll();
         $pokemons = [];
         foreach ($arrayPokemons as $arrayPokemon) {
-            $pokemons[] = new Pokemon ($arrayPokemon["id"], $arrayPokemon["pokemonId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"], $arrayPokemon["type"]);
+            $pokemons[] = new Pokemon ($arrayPokemon["id"], $arrayPokemon["pokedexId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"], $arrayPokemon["type"]);
         }
 
         return $pokemons;
@@ -99,7 +99,7 @@ class PokemonManager extends DatabaseManager {
     private function arrayToObject(array $data): Pokemon {
         $pokemon = new Pokemon(
             $data['id'],
-            $data['pokemonId'],
+            $data['pokedexId'],
             $data['nameFr'],
             $data['category'], 
             $data['image'],
