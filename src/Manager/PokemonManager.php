@@ -21,17 +21,28 @@ class PokemonManager extends DatabaseManager {
             return null;
         }
         // Renvoyer l'instance d'un objet Pokemon avec les données du tableau associatif
-        return new Pokemon($arrayPokemon["id"], $arrayPokemon["pokedexId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"]);
+        return new Pokemon($arrayPokemon["id"], $arrayPokemon["pokedexId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"], $arrayPokemon["type"] ?? []);
     }
 
     public function selectAll(): array {
         $requete = self::getConnexion()->prepare("SELECT * FROM pokemon;");
         $requete->execute();
-
         $arrayPokemons = $requete->fetchAll();
         $pokemons = [];
         foreach ($arrayPokemons as $arrayPokemon) {
-            $pokemons[] = new Pokemon ($arrayPokemon["id"], $arrayPokemon["pokedexId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"], $arrayPokemon["type"]);
+            $newPokemon = new Pokemon ($arrayPokemon["id"], $arrayPokemon["pokedexId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"] ?? "", []);
+
+            if (!empty($data["pokemonType_ids"])) {
+                $pokemonTypeIds = explode(",", $arrayPokemon["pokemonType_ids"]);
+                $pokemonTypeNames = explode(",", $arrayPokemon["pokemonType_names"]);
+                $pokemonTypeImages = explode(",", $arrayPokemon["pokemonType_images"]);
+
+                foreach($pokemonTypeIds as $index => $pokemonTypeId) {
+                    $type = new PokemonType($pokemonTypeId, $pokemonTypeNames[$index], $pokemonTypeImages[$index]);
+                    $newPokemon->addType($type);
+                }
+            } 
+            $pokemons[] = $newPokemon;
         }
 
         return $pokemons;

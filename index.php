@@ -2,15 +2,18 @@
 require_once(__DIR__ . "/vendor/autoload.php");
 
 use App\Controller\HomeController;
-// use App\Controller\PokemonSelectionController;
+use App\Models\Pokemon;
+use App\Models\PokemonType;
+use App\Manager\PokemonManager;
+use App\Manager\DatabaseManager;
 
 var_dump($_SERVER["REQUEST_URI"]);
 
-$action = $_GET["action"];
-
-$id = $_GET['id'];
+$action = $_GET["action"] ?? null;
+$id = $_GET['id'] ?? null;
 
 var_dump("Action, $action");
+var_dump($_GET);
 
 // Créer une route pour afficher la page d'accueil
 // Afficher tous les pokémons  

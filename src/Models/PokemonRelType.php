@@ -1,13 +1,13 @@
 <?php 
 
-namespace App\src\Model;
+namespace App\Models;
 
-class PokemonType
+class PokemonRelationType
 {
-    public function __construct (private ?int $pokemon_id, private int $type)
+    public function __construct (private ?int $pokemon_id, private int $typeId)
     {
         $this->pokemon_id = $pokemon_id;
-        $this->type = $type;
+        $this->typeId = $typeId;
     }
 
         public function getPokemon_id()
@@ -19,5 +19,14 @@ class PokemonType
         public function setPokemon_id($pokemon_id)
         {
                 $this->pokemon_id = $pokemon_id;
+        }
+        public function getTypeId()
+        {
+                return $this->typeId;
+        }
+
+        public function setTypeId($typeId)
+        {
+                $this->typeId = $typeId;
         }
 }

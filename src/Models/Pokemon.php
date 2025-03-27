@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Models;
+ 
 
 class Pokemon
 {
-    public function __construct(private ?int $id, private string $pokedexId, private string $nameFr, private string $category, private string $image, private string $imageShiny)
+    public function __construct(private ?int $id, private string $pokedexId, private string $nameFr, private string $category, private string $image, private string $imageShiny, private array $types)
     {
         $this->id = $id;
         $this->pokedexId = $pokedexId;
@@ -12,6 +13,7 @@ class Pokemon
         $this->category = $category;
         $this->image = $image;
         $this->imageShiny = $imageShiny;
+        $this->types = $types;
     }
 
  
@@ -76,5 +78,19 @@ class Pokemon
     public function setImageShiny($imageShiny)
     {
         $this->imageShiny = $imageShiny;
+    }
+    public function getTypes()
+    {
+        return $this->types;
+    }
+    
+    public function setTypes($types)
+    {
+        $this->types = $types;
+    }
+    
+    public function addType(PokemonType $type) 
+    {
+        $this->types[] = $type;
     }
 }

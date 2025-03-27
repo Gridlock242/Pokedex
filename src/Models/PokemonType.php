@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\src\Model;
+namespace App\Models;
 
 class PokemonType
 {
