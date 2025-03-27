@@ -3,13 +3,21 @@
 namespace App\Controller;
 use App\Manager\PokemonManager;
 
+
 class  HomeController
 {
 
     public function homePage()
     {
         // var_dump("salut");
-        require_once("./templates/homePage.php");
+        $pokemonManager = new PokemonManager;
+        $pokemons = $pokemonManager->selectAll();
+        $title = "Accueil Pokédex";
+        require_once("templates/header.php");
+        require_once("templates/homePage.php");
+        require_once("templates/footer.php");
+
+        
     }
 
     // Route pokemonSelection -> URL: index.php?action=detail&id=10 
@@ -26,4 +34,5 @@ class  HomeController
             exit();
         }
     }
+    
 }
