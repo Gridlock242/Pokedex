@@ -24,28 +24,30 @@ class PokemonManager extends DatabaseManager {
         return new Pokemon($arrayPokemon["id"], $arrayPokemon["pokedexId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"], $arrayPokemon["type"] ?? []);
     }
 
-    public function selectAll(): array {
-        $requete = self::getConnexion()->prepare("SELECT * FROM pokemon;");
+    public function selectAll(): array
+    {
+        $requete = self::getConnexion()->query("SELECT p.id, p.pokedexId, p.nameFr, p.category, p.image, p.imageShiny, GROUP_CONCAT(pt.id ORDER BY pt.id SEPARATOR ',') AS type_ids,GROUP_CONCAT(pt.name ORDER BY pt.id SEPARATOR ',') AS type_names, GROUP_CONCAT(pt.image ORDER BY pt.id SEPARATOR ',') AS type_images FROM pokemon p LEFT JOIN pokemon_type_relation ptr ON p.id = ptr.pokemon_id LEFT JOIN pokemon_type pt ON ptr.type_id = pt.id GROUP BY p.id;");
         $requete->execute();
         $arrayPokemons = $requete->fetchAll();
         $pokemons = [];
         foreach ($arrayPokemons as $arrayPokemon) {
-            $newPokemon = new Pokemon ($arrayPokemon["id"], $arrayPokemon["pokedexId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"] ?? "", []);
 
-            if (!empty($data["pokemonType_ids"])) {
-                $pokemonTypeIds = explode(",", $arrayPokemon["pokemonType_ids"]);
-                $pokemonTypeNames = explode(",", $arrayPokemon["pokemonType_names"]);
-                $pokemonTypeImages = explode(",", $arrayPokemon["pokemonType_images"]);
+            $newPokemon = new Pokemon($arrayPokemon["id"], $arrayPokemon["pokedexId"], $arrayPokemon["nameFr"], $arrayPokemon["category"], $arrayPokemon["image"], $arrayPokemon["imageShiny"] ?? "", []);
 
-                foreach($pokemonTypeIds as $index => $pokemonTypeId) {
-                    $type = new PokemonType($pokemonTypeId, $pokemonTypeNames[$index], $pokemonTypeImages[$index]);
+            if (!empty($arrayPokemon["type_ids"])) {
+                $typeIds = explode(",", $arrayPokemon["type_ids"]);
+                $typeNames = explode(",", $arrayPokemon["type_names"]);
+                $typeImages = explode(",", $arrayPokemon["type_images"]);
+
+                foreach ($typeIds as $index => $typeId) {
+                    $type = new PokemonType($typeId, $typeNames[$index], $typeImages[$index]);
                     $newPokemon->addType($type);
                 }
-            } 
+            }
+
             $pokemons[] = $newPokemon;
         }
-
-        return $pokemons;
+        return $pokemons; 
     }
 
 
