@@ -1,9 +1,9 @@
-<h1 class="">Projet Pokedex</h1>
+<!-- <h1 class="">Projet Pokedex</h1> -->
 
 <div class="container">
     <div class="row">
         <?php foreach ($pokemons as $pokemon): ?>
-            <div class="col-md-4"> <!-- Bootstrap permet d'avoir 3 colonnes par ligne -->
+            <div class="col-md-4">
                 <div class="card">
                     <img src="<?= $pokemon->getImageShiny() ?>" alt="<?= $pokemon->getNameFr() ?>" class="pokemonImgShiny">
                     <img src="<?= $pokemon->getImage() ?>" alt="<?= $pokemon->getNameFr() ?>" class="pokemonImg">

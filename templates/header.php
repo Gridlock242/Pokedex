@@ -8,4 +8,8 @@
     <title><?= $title ?? "Pokédex" ?></title>
 </head>
 <body>
+    <header>
+        <img src="styles/images/pokeball.png" alt="Pokeball">
+        <h1>Projet Pokédex</h1>
+    </header>
     
