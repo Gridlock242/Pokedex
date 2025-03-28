@@ -1,0 +1,19 @@
+.textDecorationContainer {
+    text-decoration: none;
+}
+
+.p-2 {
+    background-color: rgb(234, 225, 255);
+    border-radius: 10%;
+    text-align: center;
+}
+
+.p-2 h2 {
+    text-align: center;
+    color: rgb(110, 67, 126);
+}
+
+.p-2 p {
+    text-align: center;
+    color: rgb(110, 67, 126);
+}

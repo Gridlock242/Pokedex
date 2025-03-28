@@ -1,19 +1,23 @@
 <h1 class="">Projet Pokedex</h1>
 
-<div class="d-flex flex-wrap justify-content-evenly">
-    <?php foreach ($pokemons as $pokemon): ?>
-        <a href="templates/pokemonSelection.php" class="textDecorationContainer">
-        <div class="col-4 d-flex p-3 justify-content-center">
-            <img src="<?= $pokemon->getImage() ?>" alt="<?= $pokemon->getNameFr() ?>" style="height: 200px; width: auto;">
-            <div class="p-2">
-                <h2><?= $pokemon->getNameFr() ?></h2>
-                <p><?= $pokemon->getCategory() ?></p> 
-
-                <?php foreach ($pokemon->getTypes() as $type) { ?>
-                <img src="<?= $type->getImage() ?>" alt=""> 
-                <?php } ?>
-
+<div class="container">
+    <div class="row">
+        <?php foreach ($pokemons as $pokemon): ?>
+            <div class="col-md-4"> <!-- Bootstrap permet d'avoir 3 colonnes par ligne -->
+                <div class="card">
+                    <img src="<?= $pokemon->getImage() ?>" alt="<?= $pokemon->getNameFr() ?>" class="pokemon-img">
+                    <div class="card-body">
+                        <h2><?= $pokemon->getNameFr() ?></h2>
+                        <p><?= $pokemon->getCategory() ?></p>
+                        <div class="types">
+                            <?php foreach ($pokemon->getTypes() as $type): ?>
+                                <img src="<?= $type->getImage() ?>" alt="<?= $type->getName() ?>" class="type-img">
+                            <?php endforeach; ?>
+                        </div>
+                        <button class="card-button">Version Shiny</button>
+                    </div>
+                </div>
             </div>
-            </a>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
+</div>
