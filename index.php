@@ -42,5 +42,7 @@ if ($action === "homePage") {
 } elseif ($action === "pokemonSelection") {
     $homeController->pokemonSelection((int) $id); //
 } else {
-    echo("Action non reconnue");
+    $homeController->homePage();
 }
+
+// Récuperer le $name dans homePage

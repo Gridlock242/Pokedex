@@ -10,3 +10,5 @@ $title = "Pokémon Description";
 <?php
 
 require_once("footer.php");
+
+// STEP 1 : Taper dans le formulaire, doit écrire ?name dans l'url

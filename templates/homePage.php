@@ -1,5 +1,5 @@
 <!-- <h1 class="">Projet Pokedex</h1> -->
-
+ 
 <div class="container">
     <div class="row">
         <?php foreach ($pokemons as $pokemon): ?>
