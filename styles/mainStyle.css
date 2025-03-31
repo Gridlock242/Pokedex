@@ -11,14 +11,26 @@ body {
 
 /* HEADER */
 
+/* Applique flexbox au header */
 header {
   display: flex;
-  padding: 0.5em 0.5em 0.5em 0.5em;
+  align-items: center;
+  justify-content: space-evenly; 
+  padding: 0.5em;
   background-color: #c0b5ff;
   font-family: "Press Start 2P", system-ui;
   margin-bottom: 1.5em;
-  color: white;
 }
+
+.leftLinks {
+  display: flex;
+  align-items: center;
+}
+
+.searchForm {
+  display: flex;
+}
+
 
 header img {
   width: 2em;
@@ -29,6 +41,12 @@ header h1 {
   font-size: 1em;
   margin: none;
 }
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
 
 .container {
   max-width: 900px;
