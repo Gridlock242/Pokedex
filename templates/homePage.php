@@ -1,5 +1,9 @@
-<!-- <h1 class="">Projet Pokedex</h1> -->
- 
+<?php 
+
+require_once("header.php");
+
+?>
+
 <div class="container">
     <div class="row">
         <?php foreach ($pokemons as $pokemon): ?>
@@ -22,3 +26,7 @@
         <?php endforeach; ?>
     </div>
 </div>
+
+<?php
+
+require_once("footer.php");

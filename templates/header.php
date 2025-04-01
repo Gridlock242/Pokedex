@@ -16,23 +16,14 @@
             <img src="styles/images/pokeball.png" alt="">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="index.php">Home</a>
                     </li>
                 </ul>
         </div>
         <form class="searchForm" action="index.php" method="GET">
             <input class="form-control mr-sm-2" type="search" placeholder="Cherchez un pokémon" aria-label="Search" name="name">
             <input name="action" value="searchPage" type="hidden">
-            <!-- index.php?action=homePage -->
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-
-            <!-- SI le nom rentré existe
-            if($this->getName != false) {  -->
-            <!-- ALORS redirection vers la page de sa description -->
-             <!-- header('Location: selectionPage.php');
-             exit(); -->
         </form>
-
-
 
     </header>

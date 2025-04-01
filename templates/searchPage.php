@@ -1,11 +1,10 @@
 <?php 
 
 require_once("header.php");
-$title = "Pokémon Recherche";
 
 ?>
 
-<h1>Pokémon Recherche</h1>
+<!-- <h1>Pokémon Recherche</h1> -->
 
 <div class="container">
     <div class="row">

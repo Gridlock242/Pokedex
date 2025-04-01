@@ -13,11 +13,7 @@ class  HomeController
         $pokemonManager = new PokemonManager;
         $pokemons = $pokemonManager->selectAll();
         $title = "Accueil Pokédex";
-        require_once("templates/header.php");
-        require_once("templates/homePage.php");
-        require_once("templates/footer.php");
-
-        
+        require_once("templates/homePage.php");        
     }
 
     // Route pokemonSelection -> URL: index.php?action=detail&id=10 
@@ -38,11 +34,12 @@ class  HomeController
     public function searchPage(string $name)
     {
         $pokemonManager = new PokemonManager();
-        $pokemon = $pokemonManager->selectByName($name);
+        $pokemons = $pokemonManager->selectByName($name);
+        $title = "Recherche Pokédex";
 
         // var_dump('cc');
 
-        if ($pokemon != false) {
+        if ($pokemons != false) {
             require_once("templates/searchPage.php");
         } else {
             header("Location: index.php");
