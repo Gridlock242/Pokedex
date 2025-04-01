@@ -8,9 +8,12 @@ use App\Manager\PokemonManager;
 use App\Manager\DatabaseManager;
 
 // var_dump($_SERVER["REQUEST_URI"]);
+// var_dump($_GET);
 
 $action = $_GET["action"] ?? null;
 $id = $_GET['id'] ?? null;
+$name = $_GET['name'] ?? null;
+
 
 // var_dump("Action, $action");
 // var_dump($_GET);
@@ -20,29 +23,17 @@ $id = $_GET['id'] ?? null;
 // index.php?action=homePage
 $homeController = new HomeController();
 
-// if($action == "homePage"){
-//     // var_dump("je suis fou");
-//     $homeController->homePage();
-// }
-// else {
-//     echo("Pas home page");
-// }
-
-// index.php?action=pokemonSelection
-
-// if($action === "pokemonSelection") {
-//     $homeController->pokemonSelection($id);
-// } 
-// else {
-//     echo(" " . "Pas page Sélection");
-// }
-
 if ($action === "homePage") {
     $homeController->homePage();
 } elseif ($action === "pokemonSelection") {
     $homeController->pokemonSelection((int) $id); //
-} else {
-    $homeController->homePage();
 }
 
 // Récuperer le $name dans homePage
+// var_dump($action, $name);
+
+elseif($action === "searchPage") {
+    $homeController->searchPage($name);
+} else {
+    $homeController->homePage();
+}

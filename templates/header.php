@@ -20,9 +20,9 @@
                     </li>
                 </ul>
         </div>
-        <form class="searchForm" action="index.php">
-            <input class="form-control mr-sm-2" type="search" placeholder="Cherchez un pokémon" aria-label="Search" name="pokemonSelection">
-            <input name="action" value="homePage" type="hidden">
+        <form class="searchForm" action="index.php" method="GET">
+            <input class="form-control mr-sm-2" type="search" placeholder="Cherchez un pokémon" aria-label="Search" name="name">
+            <input name="action" value="searchPage" type="hidden">
             <!-- index.php?action=homePage -->
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 

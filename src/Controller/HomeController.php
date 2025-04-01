@@ -34,5 +34,20 @@ class  HomeController
             exit();
         }
     }
+
+    public function searchPage(string $name)
+    {
+        $pokemonManager = new PokemonManager();
+        $pokemon = $pokemonManager->selectByName($name);
+
+        // var_dump('cc');
+
+        if ($pokemon != false) {
+            require_once("templates/searchPage.php");
+        } else {
+            header("Location: index.php");
+            exit();
+        }
+    }
     
 }

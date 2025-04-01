@@ -1,23 +1,26 @@
 <?php
 
 namespace App\Manager;
+
 use App\Interfaces\CrudInterface;
 use App\Models\Pokemon;
 use App\Models\PokemonType;
 use PDO;
 
-class PokemonManager extends DatabaseManager {
+class PokemonManager extends DatabaseManager
+{
 
-    public function selectById(int $id): ?Pokemon {
+    public function selectById(int $id): ?Pokemon
+    {
         $requete = self::getConnexion()->prepare("SELECT * FROM pokemon WHERE id = :id;");
         $requete->execute([
-            ":id" => $id 
+            ":id" => $id
         ]);
 
         $arrayPokemon = $requete->fetch();
 
         // Si pas de résultat fetch()
-        if(!$arrayPokemon) {
+        if (!$arrayPokemon) {
             return null;
         }
         // Renvoyer l'instance d'un objet Pokemon avec les données du tableau associatif
@@ -47,11 +50,12 @@ class PokemonManager extends DatabaseManager {
 
             $pokemons[] = $newPokemon;
         }
-        return $pokemons; 
+        return $pokemons;
     }
 
 
-    public function insert(Pokemon $pokemon): bool {
+    public function insert(Pokemon $pokemon): bool
+    {
         $requete = self::getConnexion()->prepare("INSERT INTO pokemon (nameFr, category, image, imageShiny) VALUE (:nameFr, :category, :image, :imageShiny);");
         $requete->execute([
             ":nameFr" => $pokemon->getNameFr(),
@@ -63,7 +67,8 @@ class PokemonManager extends DatabaseManager {
         return $requete->rowCount() > 0;
     }
 
-    public function update(Pokemon $pokemon): bool {
+    public function update(Pokemon $pokemon): bool
+    {
         $requete = self::getConnexion()->prepare("UPDATE pokemon SET nameFr = :nameFr, category = :category, image = :image, imageShiny = :imageShiny;");
         $requete->execute(
             [
@@ -72,22 +77,23 @@ class PokemonManager extends DatabaseManager {
                 ":image" => $pokemon->getImage(),
                 ":imageShiny" => $pokemon->getImageShiny()
             ]
-            );
+        );
 
         return $requete->rowCount() > 0;
-
     }
 
-    public function delete(int $id): bool {
-    $requete = self::getConnexion()->prepare("DELETE FROM car WHERE id = :id;");
-    $requete->execute([
-        ":id" => $id
-    ]);
+    public function delete(int $id): bool
+    {
+        $requete = self::getConnexion()->prepare("DELETE FROM car WHERE id = :id;");
+        $requete->execute([
+            ":id" => $id
+        ]);
 
-    return $requete->rowCount() > 0;
+        return $requete->rowCount() > 0;
     }
 
-    private function getBaseQuery(): string {
+    private function getBaseQuery(): string
+    {
         return "
         SELECT 
             p.id, 
@@ -109,31 +115,56 @@ class PokemonManager extends DatabaseManager {
         LEFT JOIN pokemon_type pt2 ON ptr2.type_id = pt2.id
         ";
     }
-    private function arrayToObject(array $data): Pokemon {
+    private function arrayToObject(array $data): Pokemon
+    {
         $pokemon = new Pokemon(
             $data['id'],
             $data['pokedexId'],
             $data['nameFr'],
-            $data['category'], 
+            $data['category'],
             $data['image'],
             $data['imageShiny'],
             []
         );
 
         if (!empty($date["type1_id"])) {
-            $type1 = new PokemonType($data["type1_id"], $data
-            ["type1_name"], $data["type1_image"]);
+            $type1 = new PokemonType($data["type1_id"], $data["type1_name"], $data["type1_image"]);
 
             $pokemon->addType($type1);
         }
 
         if (!empty($date["type2_id"])) {
-            $type2 = new PokemonType($data["type2_id"], $data
-            ["type2_name"], $data["type2_image"]);
- 
+            $type2 = new PokemonType($data["type2_id"], $data["type2_name"], $data["type2_image"]);
+
             $pokemon->addType($type2);
         }
         $pokemons[] = $pokemon;
     }
-}
 
+    public function selectByName(string $nameFr): array
+    {
+        $requete = self::getConnexion()->prepare("SELECT * FROM `pokemon` WHERE `nameFr` LIKE :name;");
+        $requete->execute(
+            [
+                ':name' => "%" . $nameFr . "%"
+            ]
+        );
+        
+        $results = $requete->fetchAll();
+
+        $pokemons = [];
+        foreach($results as $result) {
+            $pokemons[] = new Pokemon(
+                $result["id"], 
+                $result["pokedexId"], 
+                $result["nameFr"], 
+                $result["category"], 
+                $result["image"], 
+                $result["imageShiny"] ?? "", 
+                []
+            );
+        }
+
+        return $pokemons;
+    }
+}
